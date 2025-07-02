@@ -55,33 +55,32 @@ const Signup = () => {
         }
     }
 
-    // const handleSignInWithGoogle = async()=>{
-    //     try{
-    //         signInWithPopup(auth, googleprovider)
-    //         .then((result) => {
-    //             // This gives you a Google Access Token. You can use it to access the Google API.
-    //             const credential = GoogleAuthProvider.credentialFromResult(result);
-    //             if(!credential){
-    //                 console.log("No credentials received during google sign-in")
-    //             }
-    //             const token = credential?.accessToken;
-    //             const user = result.user;
-    //             console.log("User logged in with google successfully:", user);
-    //             router.push("/profile");
-    //         }).catch((error) => {
-    //             const errorMessage = error instanceof Error ? error.message : "An error occurred";
-    //             seterror(errorMessage);
-    //             console.error("Error during signup:", errorMessage);
-    //             const email = error.customData.email;
-    //             const credential = GoogleAuthProvider.credentialFromError(error);
-    //         });
-    //     }catch (error : Error | any) {
-    //         seterror(error instanceof Error ? error.message : "An error occurred");
-    //         console.error("Error during signup:", error);
-    //     } finally {
-    //         setloading(false);
-    //     }
-    // }
+    const handleSignInWithGoogle = async()=>{
+        try{
+            signInWithPopup(auth, googleprovider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                if(!credential){
+                    console.log("No credentials received during google sign-in")
+                }
+                const token = credential?.accessToken;
+                const user = result.user;
+                console.log("User logged in with google successfully:", user);
+                router.push("/profile");
+            }).catch((error) => {
+                const errorMessage = error instanceof Error ? error.message : "An error occurred";
+                seterror(errorMessage);
+                console.error("Error during signup:", errorMessage);
+                const email = error.customData.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+        }catch (error : Error | any) {
+            seterror(error instanceof Error ? error.message : "An error occurred");
+            console.error("Error during signup:", error);
+        } finally {
+            setloading(false);
+        }
+    }
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -132,12 +131,12 @@ const Signup = () => {
                     <span className="mx-2 text-gray-500">or</span>
                     <hr className="flex-grow border-gray-300" />
                 </div>
-                {/* <button
+                <button
                     onClick={handleSignInWithGoogle}
                     className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition-colors"
                 >
                     Sign Up with Google
-                </button> */}
+                </button>
                 <p className="mt-4 text-sm text-center">
                     Already have an account?{" "}
                     <a href="/signin" className="text-blue-500 hover:underline">
