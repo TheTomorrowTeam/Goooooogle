@@ -56,6 +56,8 @@ const Signup = () => {
     }
 
     const handleSignInWithGoogle = async()=>{
+        setloading(true);
+        seterror("");
         try{
             signInWithPopup(auth, googleprovider)
             .then((result) => {
