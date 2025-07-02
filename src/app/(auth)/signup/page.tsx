@@ -65,31 +65,34 @@ const Signup = () => {
     }
   };
 
-  const handleSignInWithGoogle = async () => {
-    try {
-      signInWithPopup(auth, googleprovider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          if (!credential) {
-            console.log("No credentials received during Google sign-in");
-          }
-          const token = credential?.accessToken;
-          const user = result.user;
-          console.log("User logged in with Google successfully:", user);
-          router.push("/profile");
-        }).catch((error) => {
-          const errorMessage = error instanceof Error ? error.message : "An error occurred";
-          seterror(errorMessage);
-          console.error("Error during signup:", errorMessage);
-        });
-    } catch (error: Error | any) {
-      seterror(error instanceof Error ? error.message : "An error occurred");
-      console.error("Error during signup:", error);
-    } finally {
-      setloading(false);
+    const handleSignInWithGoogle = async()=>{
+        setloading(true);
+        seterror("");
+        try{
+            signInWithPopup(auth, googleprovider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                if(!credential){
+                    console.log("No credentials received during google sign-in")
+                }
+                const token = credential?.accessToken;
+                const user = result.user;
+                console.log("User logged in with google successfully:", user);
+                router.push("/profile");
+            }).catch((error) => {
+                const errorMessage = error instanceof Error ? error.message : "An error occurred";
+                seterror(errorMessage);
+                console.error("Error during signup:", errorMessage);
+                const email = error.customData.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+        }catch (error : Error | any) {
+            seterror(error instanceof Error ? error.message : "An error occurred");
+            console.error("Error during signup:", error);
+        } finally {
+            setloading(false);
+        }
     }
-  };
-
   return (
     <div
       className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
@@ -171,6 +174,6 @@ const Signup = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Signup;
