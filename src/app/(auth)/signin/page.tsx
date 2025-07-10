@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,6 +28,13 @@ const Signin = () => {
     e.preventDefault();
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       if (!password) {
         seterror("Incorrect password");
@@ -57,6 +63,13 @@ const Signin = () => {
   const handleForgotPassword = async () => {
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       if (!email) {
         console.log("Enter email");

@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -22,6 +21,11 @@ const Profile = () => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!auth) {
+      seterror("Authentication not initialized");
+      return;
+    }
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const displayName = user.displayName || "";
@@ -49,6 +53,13 @@ const Profile = () => {
   const handleEmailVerification = async () => {
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       const user = auth.currentUser;
       if (!user) {
@@ -68,6 +79,13 @@ const Profile = () => {
   const handleSignout = async () => {
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       await signOut(auth);
       console.log("User logged out successfully");
@@ -83,6 +101,13 @@ const Profile = () => {
   const handleProfileUpdate = async () => {
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       const user = auth.currentUser;
       if (!user) {

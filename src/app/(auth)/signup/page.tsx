@@ -1,4 +1,3 @@
-/* eslint-disable */
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -33,6 +32,13 @@ const Signup = () => {
     e.preventDefault();
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       if (password !== confirmpassword) {
         seterror("Passwords do not match");
@@ -69,6 +75,13 @@ const Signup = () => {
   const handleSignInWithGoogle = async () => {
     setloading(true);
     seterror("");
+
+    if (!auth) {
+      seterror("Authentication not initialized");
+      setloading(false);
+      return;
+    }
+
     try {
       signInWithPopup(auth, googleprovider)
         .then((result) => {
