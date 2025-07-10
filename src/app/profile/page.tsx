@@ -57,8 +57,8 @@ const Profile = () => {
         await sendEmailVerification(user);
         console.log("Verification email sent to the user:", user);
       }
-    } catch (error: Error | any) {
-      seterror(error.message || "An error occurred");
+    } catch (error: unknown) {
+      seterror(error instanceof Error ? error.message : "An error occurred");
       console.error("Error during email verification:", error);
     } finally {
       setloading(false);
@@ -72,8 +72,8 @@ const Profile = () => {
       await signOut(auth);
       console.log("User logged out successfully");
       router.push("/signin");
-    } catch (error: Error | any) {
-      seterror(error.message || "An error occurred");
+    } catch (error: unknown) {
+      seterror(error instanceof Error ? error.message : "An error occurred");
       console.error("Error during logout:", error);
     } finally {
       setloading(false);
@@ -94,8 +94,8 @@ const Profile = () => {
         });
         console.log("Profile updated successfully:", user);
       }
-    } catch (error: Error | any) {
-      seterror(error.message || "An error occurred");
+    } catch (error: unknown) {
+      seterror(error instanceof Error ? error.message : "An error occurred");
       console.error("Error during profile update:", error);
     } finally {
       setloading(false);
@@ -147,9 +147,8 @@ const Profile = () => {
           <button
             disabled={loading}
             onClick={handleProfileUpdate}
-            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 transition-all font-semibold ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 transition-all font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {loading ? "Updating..." : "Update Profile"}
           </button>
@@ -157,9 +156,8 @@ const Profile = () => {
           <button
             disabled={loading}
             onClick={handleEmailVerification}
-            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 transition-all font-semibold ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 transition-all font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {loading ? "Verifying..." : "Verify Email"}
           </button>
@@ -167,9 +165,8 @@ const Profile = () => {
           <button
             disabled={loading}
             onClick={handleSignout}
-            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 transition-all font-semibold ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 transition-all font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {loading ? "Logging out..." : "Log Out"}
           </button>

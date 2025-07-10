@@ -46,7 +46,7 @@ const Signin = () => {
           seterror(errorMessage);
           console.error("Error during login:", errorMessage);
         });
-    } catch (error: Error | any) {
+    } catch (error: unknown) {
       seterror(error instanceof Error ? error.message : "An error occurred");
       console.error("Error during login:", error);
     } finally {
@@ -76,7 +76,7 @@ const Signin = () => {
             errorMessage
           );
         });
-    } catch (error: Error | any) {
+    } catch (error: unknown) {
       seterror(error instanceof Error ? error.message : "An error occurred");
       console.error("Error during sending password reset email:", error);
     } finally {
@@ -129,9 +129,8 @@ const Signin = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 transition-all font-semibold ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`w-full py-3 text-white rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 transition-all font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
             >
               {loading ? "Signing In..." : "Sign In"}
             </button>
@@ -139,14 +138,13 @@ const Signin = () => {
           <button
             disabled={loading}
             onClick={handleForgotPassword}
-            className={`w-full mt-3 py-3 text-white rounded-lg bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 transition-all font-semibold ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full mt-3 py-3 text-white rounded-lg bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 transition-all font-semibold ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {loading ? "Sending Reset link..." : "Forgot Password"}
           </button>
           <p className="mt-5 text-sm font-bold text-center text-white drop-shadow-[2px_2px_3px_rgba(0,0,0,0.8)]">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a
               href="/signup"
               className="text-blue-300 hover:text-blue-400"
