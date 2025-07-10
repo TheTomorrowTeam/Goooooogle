@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -180,9 +181,9 @@ const Signup = () => {
 
         <p className="mt-5 text-sm font-bold text-center text-white drop-shadow-sm">
           Already have an account?{" "}
-          <a href="/signin" className="text-blue-300 hover:text-blue-400">
+          <Link href="/signin" className="text-blue-300 hover:text-blue-400">
             Log In
-          </a>
+          </Link>
         </p>
       </div>
     </div>
